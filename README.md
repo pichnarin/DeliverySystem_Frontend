@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # frontend
 
 Mobile application for User and Delivery driver, but the Delivery driver account can be created only by Admin-Restaurant o the Web application or something.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# DeliverySystem_Frontend
+>>>>>>> 36d41112f57caaddc13e47595eba03dfbf4d6c9f
