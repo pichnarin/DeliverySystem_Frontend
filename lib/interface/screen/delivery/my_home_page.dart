@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
                 'Drive. Deliver. Delight',
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 20,),
