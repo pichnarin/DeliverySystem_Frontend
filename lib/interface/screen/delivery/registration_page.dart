@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
-import 'package:frontend/interface/component/widgets/custom_card.dart';
+import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/divider.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
@@ -28,20 +28,25 @@ class RegistrationPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20, ),
-              const CustomCard(
-                imagePath: 'assets/icons/facebook.png', 
-                title: 'Continue with Facebook'
+              SocialButton(
+                iconPath: 'assets/icons/facebook.png', 
+                label: 'Continue with Facebook',
+                onPressed: () => print("Facebook Login"),
               ),
-              const CustomCard(
-                imagePath: 'assets/icons/google.png', 
-                title: 'Continue with Google'
+              const SizedBox(height: 10),
+              SocialButton(
+                iconPath: 'assets/icons/google.png', 
+                label: 'Continue with Google',
+                onPressed: () => print("Google Login"),
               ),
-              const CustomCard(
-                imagePath: 'assets/icons/apple.png', 
-                title: 'Continue with Apple'
+              const SizedBox(height: 10),
+              SocialButton(
+                iconPath: 'assets/icons/apple.png', 
+                label: 'Continue with Apple',
+                onPressed: () => print("Apple Login"),
               ),
               const SizedBox(height: 30),
-              OrDivider(),
+              const OrDivider(),
               const SizedBox(height: 20),
               CustomButton(
                 buttonText: 'Sign in with password', 

@@ -14,7 +14,6 @@ class CreateAccount extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  //final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   
@@ -77,18 +76,18 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                   Expanded(
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: "I agree to the ",
-                        style: const TextStyle(color: Colors.black, fontSize: 14),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                         children: [
                           TextSpan(
                             text: "Terms & Conditions",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: " and acknowledge the Privacy Policy.",
                           ),
                         ],
@@ -135,7 +134,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 ],
               ),
-             
             ],
           ),
         ),

@@ -6,7 +6,7 @@ class AppPallete {
   static const Color button = Color(0xFFF5DB50);//Color(0xFFECC32B);  
   static const Color signInUpText = Color(0xFFECC32B);  
   static const Color secondaryText =Color(0xFF7D7B7B);
-  static const Color cardBorder = Color(0xFFDADADA);
+  static const Color border = Color(0xFFDADADA);
   static const Color fillText = Color(0xFFEFEBEB);
 
 }
