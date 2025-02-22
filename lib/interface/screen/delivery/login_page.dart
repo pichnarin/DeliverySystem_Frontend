@@ -3,6 +3,7 @@ import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/divider.dart';
 import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
+import 'package:frontend/interface/screen/delivery/create_account.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
@@ -63,7 +64,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 10),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                        );
+                      },
                       child: const Text(
                         'Forgot the password?',
                         style: TextStyle(
@@ -123,7 +129,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CreateAccount()),
+                  );
+                    },
                     child: const Text(
                       'Sign Up',
                       style: TextStyle(

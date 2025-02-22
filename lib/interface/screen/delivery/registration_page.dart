@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/divider.dart';
+import 'package:frontend/interface/screen/delivery/create_account.dart';
+import 'package:frontend/interface/screen/delivery/login_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -50,7 +52,12 @@ class RegistrationPage extends StatelessWidget {
               const SizedBox(height: 20),
               CustomButton(
                 buttonText: 'Sign in with password', 
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               Row(
@@ -65,7 +72,12 @@ class RegistrationPage extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CreateAccount()),
+                  );
+                    },
                     child: const Text(
                       'Sign Up',
                       style: TextStyle(

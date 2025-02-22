@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
+import 'package:frontend/interface/screen/delivery/login_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
@@ -122,9 +123,14 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                    },
                     child: const Text(
-                      'Sign Up',
+                      'Sign in',
                       style: TextStyle(
                         color: AppPallete.signInUpText, 
                         fontSize: 14,
