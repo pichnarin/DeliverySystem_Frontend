@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
+import 'package:frontend/interface/screen/delivery/fill_in_profile_information.dart';
 import 'package:frontend/interface/screen/delivery/login_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
@@ -62,10 +63,10 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               const SizedBox(height: 20), 
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center, // Align checkbox with text
+                crossAxisAlignment: CrossAxisAlignment.center, 
                 children: [
                   SizedBox(
-                    height: 24, // Ensures checkbox height is fixed
+                    height: 24, 
                     child: Checkbox(
                       value: _isChecked,
                       onChanged: (bool? value) {
@@ -102,10 +103,9 @@ class _CreateAccountState extends State<CreateAccount> {
                 child: CustomButton(
                   buttonText: 'Create Account', 
                   onPressed: () {
-                    print("Button Clicked! Navigating...");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                      MaterialPageRoute(builder: (context) => const FillInProfileInfo()),
                     );
                   },
                 ),

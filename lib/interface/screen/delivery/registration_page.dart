@@ -8,7 +8,7 @@ import 'package:frontend/interface/theme/app_pallete.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

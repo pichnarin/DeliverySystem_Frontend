@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
+
 class SocialButton extends StatelessWidget {
   final String label;
   final String iconPath;
