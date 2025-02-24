@@ -4,6 +4,7 @@ import 'package:frontend/interface/component/widgets/divider.dart';
 import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/create_account.dart';
+import 'package:frontend/interface/screen/delivery/forgot_password_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                          MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
                         );
                       },
                       child: const Text(
