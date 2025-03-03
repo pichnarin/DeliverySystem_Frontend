@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/screen/delivery/fill_in_profile_information.dart';
 import 'package:frontend/interface/screen/delivery/create_account.dart';
@@ -7,7 +8,13 @@ import 'package:frontend/interface/screen/delivery/login_page.dart';
 import 'package:frontend/interface/screen/delivery/my_home_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
 
-void main() {
+void main(){
+  // WidgetsFlutterBinding.ensureInitialized();
+  //
+  // //initialize firebase
+  //
+  // await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

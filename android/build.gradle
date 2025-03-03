@@ -1,3 +1,16 @@
+// android/build.gradle (Root-level)
+
+buildscript {
+    repositories {
+        google()  // Firebase repository
+        mavenCentral()
+    }
+    dependencies {
+        // Add the classpath for the Google services plugin
+        classpath 'com.google.gms:google-services:4.4.2'  // Google services plugin
+    }
+}
+
 allprojects {
     repositories {
         google()

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "412279854118",
+    "project_id": "pizzasprintnotification",
+    "storage_bucket": "pizzasprintnotification.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412279854118:android:a40f18e02f5443142202e7",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbctx-1rArQxLRxih2oZgnC_5v0wdPhqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
