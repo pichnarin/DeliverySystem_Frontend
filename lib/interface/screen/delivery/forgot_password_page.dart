@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/email_verification.dart';
-import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
 class ForgotPasswordPage extends StatefulWidget {

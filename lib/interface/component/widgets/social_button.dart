@@ -39,17 +39,17 @@ class SocialButton extends StatelessWidget {
         : ElevatedButton.icon(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6),
-                side: BorderSide(color: AppPallete.border, width: 1)
+                side: const BorderSide(color: AppPallete.border, width: 1)
               ),
               backgroundColor: Colors.white,
             ),
             icon: Image.asset(iconPath, width: 32, height: 32),
             label: Text(
               label,
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
         ),
     );

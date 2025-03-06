@@ -27,7 +27,7 @@ class _EmailVerificationState extends State<EmailVerification> {
   }
   void startCountdown() {
     countdownStream.add(countdown);
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       if (countdown > 0) {
         countdown--;
         countdownStream.add(countdown);
@@ -39,12 +39,12 @@ class _EmailVerificationState extends State<EmailVerification> {
   void verifyOTP(String enteredOTP) {
     if (enteredOTP == correctOTP) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("OTP Verified!")),
+        const SnackBar(content: Text("OTP Verified!")),
       );
       // Navigate to the next screen or perform further actions here
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Invalid OTP, please try again!")),
+        const SnackBar(content: Text("Invalid OTP, please try again!")),
       );
     }
   }
@@ -56,7 +56,7 @@ class _EmailVerificationState extends State<EmailVerification> {
       startCountdown();
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("New OTP sent to your email!")),
+      const SnackBar(content: Text("New OTP sent to your email!")),
     );
   }
   @override
@@ -126,7 +126,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                               text: snapshot.data! > 0
                                   ? "Resent in ${snapshot.data}s"
                                   : "Resend Code",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppPallete.signInUpText,//snapshot.data! > 0 ? Colors.grey : Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -149,7 +149,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                           verifyOTP(otpController.text);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Enter a 4-digit OTP!")),
+                            const SnackBar(content: Text("Enter a 4-digit OTP!")),
                           );
                         }
                       },

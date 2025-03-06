@@ -76,7 +76,7 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
                     radius: 50,
                     backgroundImage: _image != null
                     ? FileImage(_image!)
-                    : AssetImage('assets/images/user1.png')
+                    : const AssetImage('assets/images/user1.png')
                   ),
                 ),
               ),

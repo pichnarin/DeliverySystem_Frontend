@@ -3,7 +3,6 @@ import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/fill_in_profile_information.dart';
 import 'package:frontend/interface/screen/delivery/login_page.dart';
-import 'package:frontend/interface/screen/delivery/registration_page.dart';
 import 'package:frontend/interface/theme/app_pallete.dart';
 
 class CreateAccount extends StatefulWidget {

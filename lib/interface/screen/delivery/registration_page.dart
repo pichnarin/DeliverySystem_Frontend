@@ -37,7 +37,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SocialButton(
-                iconPath: 'assets/icons/google.png', 
+                iconPath: 'assets/icons/google.png',
                 label: 'Continue with Google',
                 onPressed: () => print("Google Login"),
               ),

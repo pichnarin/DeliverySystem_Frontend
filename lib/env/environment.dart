@@ -1,10 +1,13 @@
-import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 
 class Environment{
 
-  static const String BASE_URL = 'http://127.0.0.1:8000/';
-  static const String API_URL = '${BASE_URL}api/';
+  static const String endpointBase = "http://127.0.0.1:8000";
+  static const String endpointApi = "http://127.0.0.1:8000/api";
 
+}
+
+
+void main(){
+  print('${Environment.endpointApi}/google-login');
 }

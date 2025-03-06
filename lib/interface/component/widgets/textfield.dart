@@ -64,7 +64,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.blue),
+            borderSide: const BorderSide(color: Colors.blue),
           ),
         ),
       ),
