@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:frontend/env/environment.dart';
+import 'package:frontend/env/user_local_storage/secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
@@ -118,7 +119,17 @@ class GoogleSignInButton extends StatelessWidget {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
         final String jwtToken = data['jwtToken'] ?? 'No JWT received'; // Handle missing key
-        print('Received JWT token: $jwtToken');
+
+        //store the jwt_token of the user
+        await secureLocalStorage.persistentToken(jwtToken);
+
+        final String? storedToken = await secureLocalStorage.retrieveToken();
+
+        print ('Stored token: $storedToken');
+
+        print("User signup successful");
+        print("Response body: ${response.body}");
+
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
         print('Response body: ${response.body}'); // Print response for debugging
