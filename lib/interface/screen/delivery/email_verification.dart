@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/custom_button.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+import 'package:frontend/interface/component/widgets/text_button.dart';
+import 'package:frontend/interface/theme/theme.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class EmailVerification extends StatefulWidget {
@@ -68,9 +68,7 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPallete.background,
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -160,7 +158,6 @@ class _EmailVerificationState extends State<EmailVerification> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

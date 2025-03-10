@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+import 'package:frontend/interface/theme/theme.dart';
 
 
 class SocialButton extends StatelessWidget {

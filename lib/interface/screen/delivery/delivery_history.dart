@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'package:frontend/interface/component/widgets/date_selector.dart';
+import 'package:frontend/interface/component/widgets/orders/order_card.dart';
+import 'package:frontend/interface/component/widgets/orders/order_summary_card.dart';
+import '../../component/widgets/orders/order_ride_history_card.dart';
+import '../../theme/theme.dart';
+import 'package:frontend/interface/component/widgets/custom_bottom_navigation_bar.dart'; // Import your custom bottom navigation bar
+
+class DeliveryHistory extends StatefulWidget {
+  const DeliveryHistory({super.key});
+
+  @override
+  _DeliveryHistoryState createState() => _DeliveryHistoryState();
+}
+
+class _DeliveryHistoryState extends State<DeliveryHistory> {
+  // Variable to hold the selected index for BottomNavigationBar
+  int _currentIndex = 2;
+
+  // Method to handle tab changes
+  void _onTab(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('History', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body:
+        Column(
+          children: [
+            DateSelector(),
+        
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SummaryCard(
+                  icon: Icons.motorcycle,
+                  title: 'Total Distance',
+                  value: '22km',
+                  color: AppPallete.card1,
+                ),
+                SizedBox(width: 30,),
+                SummaryCard(
+                  icon: Icons.attach_money,
+                  title: 'Total Earned',
+                  value: '\$10.50',
+                  color: AppPallete.card2,
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            
+            // Ride History List
+            Expanded(child: _buildRideHistoryList()),
+        
+          ],
+        ),
+      
+      bottomNavigationBar: CustomBottomNavigationBar( 
+        currentIndex: _currentIndex,
+        onTap: _onTab,
+      )
+    );
+    
+  }
+
+  
+
+  /// Ride History List
+  Widget _buildRideHistoryList() {
+    final rideHistory = [
+      {
+        'name': 'Steve Brown',
+        'price': '1.75',
+        'distance': '5.1',
+        'pickupLocation': 'Street360',
+        'dropoffLocation': '234 ToulKork St, PhnomPenh',
+        'avatar': 'assets/images/user1.png',
+        'paymentMethod': 'ABA',
+      },
+      {
+        'name': 'Stella Daily',
+        'price': '1.50',
+        'distance': '3.2',
+        'pickupLocation': 'Street360',
+        'dropoffLocation': '234 ToulKork St, PhnomPenh',
+        'avatar': 'assets/images/user2.png',
+        'paymentMethod': 'ACLEDA',
+      },
+      {
+        'name': 'Sarah Mata',
+        'price': '1.60',
+        'distance': '4.7',
+        'pickupLocation': 'Street360',
+        'dropoffLocation': '234 ToulKork St, PhnomPenh',
+        'avatar': 'assets/images/user3.png',
+        'paymentMethod': 'CASH',
+      },
+    ];
+
+    return ListView.builder(
+      itemCount: rideHistory.length,
+      itemBuilder: (context, index) {
+        final ride = rideHistory[index];
+        return OrderCard(
+          name: ride['name']!,
+          avatar: ride['avatar']!,
+          paymentMethod: ride['paymentMethod']!,
+          price: ride['price']!,
+          distance: ride['distance']!,
+          pickupLocation: ride['pickupLocation']!,
+          dropoffLocation: ride['dropoffLocation']!,
+        );
+      },
+    );
+}
+}

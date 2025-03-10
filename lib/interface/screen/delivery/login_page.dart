@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/custom_button.dart';
+import 'package:frontend/interface/component/widgets/text_button.dart';
 import 'package:frontend/interface/component/widgets/divider.dart';
 import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/create_account.dart';
 import 'package:frontend/interface/screen/delivery/forgot_password_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+import 'package:frontend/interface/theme/theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,9 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPallete.background,
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -150,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }

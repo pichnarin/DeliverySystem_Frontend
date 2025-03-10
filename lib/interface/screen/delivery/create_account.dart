@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/custom_button.dart';
+import 'package:frontend/interface/component/widgets/text_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/fill_in_profile_information.dart';
 import 'package:frontend/interface/screen/delivery/login_page.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+import 'package:frontend/interface/theme/theme.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -22,9 +22,7 @@ class _CreateAccountState extends State<CreateAccount> {
   bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPallete.background,
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -143,7 +141,6 @@ class _CreateAccountState extends State<CreateAccount> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

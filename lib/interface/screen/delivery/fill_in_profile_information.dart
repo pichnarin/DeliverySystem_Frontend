@@ -1,11 +1,11 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/custom_button.dart';
+import 'package:frontend/interface/component/widgets/text_button.dart';
 import 'package:frontend/interface/component/widgets/dropdown.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
 import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+import 'package:frontend/interface/theme/theme.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FillInProfileInfo extends StatefulWidget {
@@ -30,10 +30,13 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
     );
 
     if (pickedFile != null) {
+      print("Image selected: ${pickedFile.path}");
       setState(() {
         _image = File(pickedFile.path); 
       });
-    }
+    }else {
+    print("No image selected");
+  }
   }
   
    // Function to show date picker and update controller
@@ -47,15 +50,13 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
 
     if (picked != null) {
       setState(() {
-        _dobController.text = "${picked.toLocal()}".split(' ')[0]; // Set the selected date to the controller
+        _dobController.text = DateFormat('dd MMM yyyy').format(picked);
       });
     }
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPallete.background,
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -75,8 +76,9 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage: _image != null
-                    ? FileImage(_image!)
-                    : AssetImage('assets/images/user1.png')
+                    ? FileImage(_image!) as ImageProvider
+                    : const AssetImage('assets/images/user1.png'),
+                    child: _image == null ? const Icon(Icons.camera_alt, size: 40) : null,
                   ),
                 ),
               ),
@@ -92,8 +94,11 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
                 controller: _dobController,
                 hintText: "Date of Birth",
                 onTap: () => _selectDate(context),
-                suffixIcon: const Icon(Icons.calendar_today),
-              ),
+                suffixIcon: GestureDetector(
+                  onTap: () => _selectDate(context),  
+                  child: const Icon(Icons.calendar_month),
+                ),
+                            ),
               const SizedBox(height: 10),
               ReusableDropdown(
                 hintText: 'Select Gender',
@@ -125,7 +130,6 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
