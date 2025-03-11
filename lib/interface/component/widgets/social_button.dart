@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/theme/theme.dart';
 
+import '../../theme/theme.dart';
 
 class SocialButton extends StatelessWidget {
   final String label;

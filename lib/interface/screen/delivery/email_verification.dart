@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/text_button.dart';
-import 'package:frontend/interface/theme/theme.dart';
+import 'package:frontend/interface/component/widgets/custom_text_button.dart';
+
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../../theme/theme.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});
@@ -68,96 +70,98 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 50),
-              const Text(
-                'Email Verification',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold
+    return Scaffold(
+      body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50),
+                const Text(
+                  'Email Verification',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-              const Text(
-                'Please enter the code we sent to your email address',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500
+                const Text(
+                  'Please enter the code we sent to your email address',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
-              ),
-              const SizedBox(height: 50),
-              PinCodeTextField(
-                appContext: context, 
-                length: 4,
-                controller: otpController,
-                keyboardType: TextInputType.number,
-                pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(8),
-                  fieldHeight: 50,
-                  fieldWidth: 50,
-                  activeColor: Colors.yellow,
-                  inactiveColor: Colors.grey.shade300,
-                  selectedColor: Colors.black,
+                const SizedBox(height: 50),
+                PinCodeTextField(
+                  appContext: context, 
+                  length: 4,
+                  controller: otpController,
+                  keyboardType: TextInputType.number,
+                  pinTheme: PinTheme(
+                    shape: PinCodeFieldShape.box,
+                    borderRadius: BorderRadius.circular(8),
+                    fieldHeight: 50,
+                    fieldWidth: 50,
+                    activeColor: Colors.yellow,
+                    inactiveColor: Colors.grey.shade300,
+                    selectedColor: Colors.black,
+                  ),
+                  onChanged: (value) {},
                 ),
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: StreamBuilder<int>(
-                  stream: countdownStream.stream,
-                  builder: (context, snapshot) {
-                    return GestureDetector(
-                      onTap: snapshot.data == 0 ? resendOTP : null,
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            const TextSpan(
-                              text: "Didn't receive code? ",
-                              style: TextStyle(color: AppPallete.secondaryText, fontWeight: FontWeight.w500),
-                            ),
-                            TextSpan(
-                              text: snapshot.data! > 0
-                                  ? "Resent in ${snapshot.data}s"
-                                  : "Resend Code",
-                              style: TextStyle(
-                                color: AppPallete.signInUpText,//snapshot.data! > 0 ? Colors.grey : Colors.blue,
-                                fontWeight: FontWeight.bold,
+                const SizedBox(height: 10),
+                Center(
+                  child: StreamBuilder<int>(
+                    stream: countdownStream.stream,
+                    builder: (context, snapshot) {
+                      return GestureDetector(
+                        onTap: snapshot.data == 0 ? resendOTP : null,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              const TextSpan(
+                                text: "Didn't receive code? ",
+                                style: TextStyle(color: AppPallete.secondaryText, fontWeight: FontWeight.w500),
                               ),
-                            ),
-                          ],
+                              TextSpan(
+                                text: snapshot.data! > 0
+                                    ? "Resent in ${snapshot.data}s"
+                                    : "Resend Code",
+                                style: TextStyle(
+                                  color: AppPallete.signInUpText,//snapshot.data! > 0 ? Colors.grey : Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 50),
+                Center(
+                  child: Column(
+                    children: [
+                      CustomTextButton(
+                        buttonText: 'Continue', 
+                        onPressed: () {
+                          if (otpController.text.length == 4) {
+                            verifyOTP(otpController.text);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Enter a 4-digit OTP!")),
+                            );
+                          }
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 50),
-              Center(
-                child: Column(
-                  children: [
-                    CustomButton(
-                      buttonText: 'Continue', 
-                      onPressed: () {
-                        if (otpController.text.length == 4) {
-                          verifyOTP(otpController.text);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Enter a 4-digit OTP!")),
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),       
-            ],
+                    ],
+                  ),
+                ),       
+              ],
+            ),
           ),
         ),
-      );
+    );
   }
 }

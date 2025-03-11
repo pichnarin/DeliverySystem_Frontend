@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'package:frontend/interface/screen/delivery/home_view.dart';
+import 'package:frontend/model/user_profile.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/component/widgets/text_button.dart';
+import 'package:frontend/interface/component/widgets/custom_text_button.dart';
 import 'package:frontend/interface/component/widgets/dropdown.dart';
-import 'package:frontend/interface/component/widgets/textfield.dart';
-import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/theme.dart';
+import 'package:frontend/interface/component/widgets/fill_in_profile_textfield.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/user_provider.dart';
 
 class FillInProfileInfo extends StatefulWidget {
   const FillInProfileInfo({super.key});
@@ -30,12 +33,9 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
     );
 
     if (pickedFile != null) {
-      print("Image selected: ${pickedFile.path}");
       setState(() {
         _image = File(pickedFile.path); 
       });
-    }else {
-    print("No image selected");
   }
   }
   
@@ -56,80 +56,91 @@ class _FillInProfileInfoState extends State<FillInProfileInfo> {
   }
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Fill Your Profile',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              const SizedBox(height: 30),
-              Center(
-                child: GestureDetector(
-                  onTap: _pickImage,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: _image != null
-                    ? FileImage(_image!) as ImageProvider
-                    : const AssetImage('assets/images/user1.png'),
-                    child: _image == null ? const Icon(Icons.camera_alt, size: 40) : null,
+    return Scaffold(
+      body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Fill Your Profile',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              
-              ReusableTextField(
-                controller: _userNameController,
-                hintText: "Username",
-                keyboardType: TextInputType.text,
-              ),
-              const SizedBox(height: 10),
-              ReusableTextField(
-                controller: _dobController,
-                hintText: "Date of Birth",
-                onTap: () => _selectDate(context),
-                suffixIcon: GestureDetector(
-                  onTap: () => _selectDate(context),  
-                  child: const Icon(Icons.calendar_month),
+                const SizedBox(height: 30),
+                Center(
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: _image != null
+                      ? FileImage(_image!) 
+                      : null,
+                      child: _image == null ? const Icon(Icons.camera_alt, size: 40) : null,
+                    ),
+                  ),
                 ),
-                            ),
-              const SizedBox(height: 10),
-              ReusableDropdown(
-                hintText: 'Select Gender',
-                items: const ['Male', 'Female', 'Other'], 
-                selectedValue: _selectedGender, 
-                onChanged: (value) {
-                  setState(() {
-                    _selectedGender = value; 
-                  });
-                },
-              ),
-              const SizedBox(height: 10),
-              ReusableTextField(
-                controller: _phoneNumberController,
-                hintText: "Phone Number",
-              ),
-              const SizedBox(height: 50), 
-              Center(
-                child: CustomButton(
-                  buttonText: 'Continue', 
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RegistrationPage()),
-                    );
+                const SizedBox(height: 20),
+                
+                ReusableTextField(
+                  controller: _userNameController,
+                  hintText: "Username",
+                  keyboardType: TextInputType.text,
+                ),
+                const SizedBox(height: 10),
+                ReusableTextField(
+                  controller: _dobController,
+                  hintText: "Date of Birth",
+                  onTap: () => _selectDate(context),
+                  suffixIcon: GestureDetector(
+                    onTap: () => _selectDate(context),  
+                    child: const Icon(Icons.calendar_month),
+                  ),
+                              ),
+                const SizedBox(height: 10),
+                ReusableDropdown(
+                  hintText: 'Select Gender',
+                  items: const ['Male', 'Female', 'Other'], 
+                  selectedValue: _selectedGender, 
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGender = value; 
+                    });
                   },
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                ReusableTextField(
+                  controller: _phoneNumberController,
+                  hintText: "Phone Number",
+                ),
+                const SizedBox(height: 50), 
+                Center(
+                  child: CustomTextButton(
+                    buttonText: 'Continue', 
+                    onPressed: () {
+                      Provider.of<UserProvider>(context, listen: false).updateUser(
+                        UserProfile(
+                          userName: _userNameController.text, 
+                          phoneNumber: _phoneNumberController.text, 
+                          dob: _dobController.text,
+                          gender: _selectedGender!,
+                          imagePath: _image?.path,
+                        ),
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeView()),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      );
+    );
   }
 }

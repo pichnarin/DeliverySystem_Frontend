@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../component/widgets/custom_bottom_navigation_bar.dart';
 import '../../component/widgets/orders/order_card.dart';
 import 'order_detail.dart';
 
@@ -12,28 +11,22 @@ class ActiveOrder extends StatefulWidget {
 }
 
 class _ActiveOrderState extends State<ActiveOrder> {
-  int _currentIndex = 1;
-
-  void _onTab(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Active Order', style: TextStyle(color: Colors.black)),
+        title: const Text('Active Order', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.transparent,
         centerTitle: true,
       ),
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             color: Colors.amber,
             width: double.infinity,
-            child: Text(
+            child: const Text(
               'You have 5 new requests.',
               style: TextStyle(color: Colors.black),
             ),
@@ -90,10 +83,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar( 
-        currentIndex: _currentIndex,
-        onTap: _onTab,
-      )
+      
       
     );
   }

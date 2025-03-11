@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/interface/theme/theme.dart';
+import '../../theme/theme.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.buttonText, required this.onPressed});
+class CustomTextButton extends StatelessWidget {
+  const CustomTextButton({super.key, required this.buttonText, required this.onPressed});
   final String buttonText;
   final VoidCallback onPressed;
   @override

@@ -11,7 +11,7 @@ class OrderDetail extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Navigate back
+            Navigator.pop(context);
           },
         ),
         title: Text('$orderId'),

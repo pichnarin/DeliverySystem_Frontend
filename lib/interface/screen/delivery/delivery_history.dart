@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/date_selector.dart';
 import 'package:frontend/interface/component/widgets/orders/order_card.dart';
 import 'package:frontend/interface/component/widgets/orders/order_summary_card.dart';
-import '../../component/widgets/orders/order_ride_history_card.dart';
-import '../../theme/theme.dart';
-import 'package:frontend/interface/component/widgets/custom_bottom_navigation_bar.dart'; // Import your custom bottom navigation bar
+import '../../theme/theme.dart'; // Import your custom bottom navigation bar
 
 class DeliveryHistory extends StatefulWidget {
   const DeliveryHistory({super.key});
@@ -14,15 +12,7 @@ class DeliveryHistory extends StatefulWidget {
 }
 
 class _DeliveryHistoryState extends State<DeliveryHistory> {
-  // Variable to hold the selected index for BottomNavigationBar
-  int _currentIndex = 2;
-
-  // Method to handle tab changes
-  void _onTab(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +54,6 @@ class _DeliveryHistoryState extends State<DeliveryHistory> {
           ],
         ),
       
-      bottomNavigationBar: CustomBottomNavigationBar( 
-        currentIndex: _currentIndex,
-        onTap: _onTab,
-      )
     );
     
   }

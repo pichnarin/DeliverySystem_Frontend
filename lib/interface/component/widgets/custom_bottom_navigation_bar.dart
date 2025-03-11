@@ -8,6 +8,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       currentIndex: currentIndex,
       onTap: onTap,
       selectedItemColor: Colors.black, 
@@ -19,7 +20,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Home', 
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
+          icon: Icon(Icons.shopping_bag),
           label: 'Order',
         ),
         BottomNavigationBarItem(
