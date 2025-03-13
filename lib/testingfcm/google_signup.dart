@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:frontend/env/environment.dart';
 import 'package:frontend/env/user_local_storage/secure_storage.dart';
+import 'package:frontend/interface/screen/delivery/my_home_page.dart';
+import 'package:frontend/testingfcm/customer_order.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/firebase_options.dart';
+
+import 'change_role_request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -123,12 +127,36 @@ class GoogleSignInButton extends StatelessWidget {
         //store the jwt_token of the user
         await secureLocalStorage.persistentToken(jwtToken);
 
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const MyHomePage()),
+        // );
+
         final String? storedToken = await secureLocalStorage.retrieveToken();
 
         print ('Stored token: $storedToken');
 
         print("User signup successful");
         print("Response body: ${response.body}");
+
+
+        print('Placing order...');
+
+        //place order
+        await placeOrder(1, 1, [
+          {
+            "food_id": 1,
+            "quantity": 2,
+          },
+          {
+            "food_id": 2,
+            "quantity": 1,
+          }
+        ], 'paid_out');
+
+        print("change role request...");
+        //change role request
+        await changeRoleRequest('driver');
 
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
