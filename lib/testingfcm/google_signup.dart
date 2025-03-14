@@ -2,16 +2,14 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:frontend/domain/service/food_service.dart';
 import 'package:frontend/env/environment.dart';
 import 'package:frontend/env/user_local_storage/secure_storage.dart';
-import 'package:frontend/interface/screen/delivery/my_home_page.dart';
-import 'package:frontend/testingfcm/customer_order.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/firebase_options.dart';
 
-import 'change_role_request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,7 +57,7 @@ class GoogleSignInButton extends StatelessWidget {
 
   GoogleSignInButton({super.key});
 
-  Future<void> _handleSignIn() async {
+  Future<void> _handleSignIn(BuildContext context) async {
     try {
       UserCredential userCredential;
 
@@ -67,7 +65,7 @@ class GoogleSignInButton extends StatelessWidget {
         final GoogleAuthProvider googleProvider = GoogleAuthProvider();
         userCredential = await FirebaseAuth.instance.signInWithPopup(googleProvider);
       } else {
-        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+        final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
         if (googleUser == null) {
           print('User cancelled the login');
           return;
@@ -94,14 +92,13 @@ class GoogleSignInButton extends StatelessWidget {
       }
 
       print('Firebase ID Token: $idToken');
-      await sendIdTokenToBackend(idToken);
+      await sendIdTokenToBackend(idToken, context);
     } catch (error) {
       print('Error signing in with Google: $error');
     }
   }
 
-
-  Future<void> sendIdTokenToBackend(String? idToken) async {
+  Future<void> sendIdTokenToBackend(String? idToken, BuildContext context) async {
     if (idToken == null || idToken.isEmpty) {
       print('Error: idToken is null or empty');
       return;
@@ -124,25 +121,20 @@ class GoogleSignInButton extends StatelessWidget {
         final Map<String, dynamic> data = jsonDecode(response.body);
         final String jwtToken = data['jwtToken'] ?? 'No JWT received'; // Handle missing key
 
-        //store the jwt_token of the user
+        // Store the jwt_token of the user
         await secureLocalStorage.persistentToken(jwtToken);
-
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const MyHomePage()),
-        // );
 
         final String? storedToken = await secureLocalStorage.retrieveToken();
 
-        print ('Stored token: $storedToken');
-
+        print('Stored token: $storedToken');
         print("User signup successful");
         print("Response body: ${response.body}");
 
-
-        print('placing order');
-        placeOrder();
-
+        // Navigate to FoodScreen after successful login
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const FoodScreen()),
+        );
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
         print('Response body: ${response.body}'); // Print response for debugging
@@ -159,12 +151,12 @@ class GoogleSignInButton extends StatelessWidget {
         width: 200,
         height: 50,
         child: GoogleSignInButtonWeb(
-          onSignIn: _handleSignIn,
+          onSignIn: () => _handleSignIn(context),
         ),
       );
     } else {
       return ElevatedButton(
-        onPressed: _handleSignIn,
+        onPressed: () => _handleSignIn(context),
         child: const Text('Sign in with Google'),
       );
     }

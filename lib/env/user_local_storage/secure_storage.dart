@@ -18,4 +18,3 @@ class SecureLocalStorage {
 }
 
 final secureLocalStorage = SecureLocalStorage();
-

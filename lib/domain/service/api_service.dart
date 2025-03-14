@@ -12,6 +12,7 @@ class ApiService{
 
   Future <http.Response> get(String endpoint) async{
     String? token = await secureLocalStorage.retrieveToken();
+    print(token);
     if(token == null || token.isEmpty){
       return http.Response('{"error": "Token is missing or invalid"}', 401);
     }
@@ -58,5 +59,4 @@ class ApiService{
     }
   }
 
-
-  final ApiService apiService = ApiService();
+final ApiService apiService = ApiService();
