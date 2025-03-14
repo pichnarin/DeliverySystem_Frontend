@@ -57,3 +57,6 @@ class ApiService{
     );
     }
   }
+
+
+  final ApiService apiService = ApiService();

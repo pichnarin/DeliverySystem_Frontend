@@ -140,23 +140,8 @@ class GoogleSignInButton extends StatelessWidget {
         print("Response body: ${response.body}");
 
 
-        print('Placing order...');
-
-        //place order
-        await placeOrder(1, 1, [
-          {
-            "food_id": 1,
-            "quantity": 2,
-          },
-          {
-            "food_id": 2,
-            "quantity": 1,
-          }
-        ], 'paid_out');
-
-        print("change role request...");
-        //change role request
-        await changeRoleRequest('driver');
+        print('placing order');
+        placeOrder();
 
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
