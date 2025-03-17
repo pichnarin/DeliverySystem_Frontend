@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/firebase_options.dart';
+import 'package:frontend/domain/service/order_service.dart';
 
 
 void main() async {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text("Google Sign-In")),
+        appBar: AppBar(title: const Text("Google Sign-In")),
         body: Center(child: GoogleSignInButton()),
       ),
     );
@@ -135,6 +136,8 @@ class GoogleSignInButton extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => const FoodScreen()),
         );
+
+        placeOrder();
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
         print('Response body: ${response.body}'); // Print response for debugging
@@ -147,7 +150,7 @@ class GoogleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (kIsWeb) {
-      return Container(
+      return SizedBox(
         width: 200,
         height: 50,
         child: GoogleSignInButtonWeb(
@@ -166,7 +169,7 @@ class GoogleSignInButton extends StatelessWidget {
 class GoogleSignInButtonWeb extends StatelessWidget {
   final Future<void> Function() onSignIn;
 
-  const GoogleSignInButtonWeb({required this.onSignIn, Key? key}) : super(key: key);
+  const GoogleSignInButtonWeb({required this.onSignIn, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +177,7 @@ class GoogleSignInButtonWeb extends StatelessWidget {
       onTap: onSignIn,
       child: Container(
         color: Colors.blue,
-        child: Center(
+        child: const Center(
           child: Text(
             'Sign in with Google',
             style: TextStyle(color: Colors.white),

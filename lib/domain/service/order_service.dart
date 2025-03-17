@@ -5,10 +5,10 @@ void placeOrder() async {
   try {
     Map<String, dynamic> orderData = {
       "customer_id": 1,
-      "address_id": 3,
+      "address_id": 1,
       "food": [
-        {"food_id": 8, "quantity": 2},
-        {"food_id": 2, "quantity": 1}
+        {"food_id": 11, "quantity": 3 },
+        {"food_id": 12, "quantity": 10}
       ]
     };
 

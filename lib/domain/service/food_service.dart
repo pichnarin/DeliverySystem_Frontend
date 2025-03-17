@@ -42,16 +42,16 @@ class _FoodScreenState extends State<FoodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Food Menu")),
+      appBar: AppBar(title: const Text("Food Menu")),
       body: FutureBuilder<List<Food>>(
         future: _foodFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("No food items available."));
+            return const Center(child: Text("No food items available."));
           }
 
           List<Food> foods = snapshot.data!;
@@ -81,7 +81,7 @@ class _FoodScreenState extends State<FoodScreen> {
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
         // If image fails to load, show a fallback icon or image
-        return Icon(
+        return const Icon(
           Icons.fastfood, // You can use any other icon or widget you prefer
           size: 50,
           color: Colors.grey,
@@ -91,7 +91,7 @@ class _FoodScreenState extends State<FoodScreen> {
         if (loadingProgress == null) {
           return child;
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
@@ -100,5 +100,5 @@ class _FoodScreenState extends State<FoodScreen> {
 
 
 void main() {
-  runApp(MaterialApp(home: FoodScreen()));
+  runApp(const MaterialApp(home: FoodScreen()));
 }
