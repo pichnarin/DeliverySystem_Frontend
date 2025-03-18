@@ -1,21 +1,20 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/domain/model/addresses.dart';
-import 'package:frontend/domain/service/location_service.dart';
 import 'package:http/http.dart' as http;
-import '../model/food.dart';
+
 import 'api_service.dart';
 
-class FoodService {
-
-  Future<List<Food>> getFood() async {
+class LocationService{
+  Future<List<Addresses>> getAllAddress() async {
     try {
-      http.Response response = await apiService.get('foods/getAllFoods');
+      http.Response response = await apiService.get('addresses/getAllAddresses');
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body)['data'];
-        return jsonData.map((food) => Food.fromJson(food)).toList();
+        return jsonData.map((address) => Addresses.fromJson(address)).toList();
       } else {
         throw Exception('Failed to fetch foods: ${response.body}');
       }
@@ -24,49 +23,48 @@ class FoodService {
     }
   }
 
-  
-  Future<List<Food>> getFoodByCategory(String category) async {
+  Future<void> createAddress(Addresses address) async {
     try {
-      http.Response response = await apiService.get('foods/category/$category');
-      
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = jsonDecode(response.body)['data'];
-        return jsonData.map((food) => Food.fromJson(food)).toList();
+      http.Response response = await apiService.post('/addresses/create', address.toJson());
+      if (response.statusCode == 201) {
+        response.body;
       } else {
-        throw Exception('Failed to fetch foods: ${response.body}');
+        throw Exception('Failed to create address: ${response.body}');
       }
     } catch (e) {
       throw Exception('Error: $e');
     }
   }
-  
-  
+
+
 }
 
-class FoodScreen extends StatefulWidget {
-  const FoodScreen({super.key});
+
+
+class LocationScreen extends StatefulWidget {
+  const LocationScreen({super.key});
 
   @override
   _FoodScreenState createState() => _FoodScreenState();
 }
 
-class _FoodScreenState extends State<FoodScreen> {
-  final FoodService _foodService = FoodService();
+class _FoodScreenState extends State<LocationScreen> {
+  final LocationService _foodService = LocationService();
   final LocationService _locationService = LocationService();
 
-  late Future<List<Food>> _foodFuture;
+  late Future<List<Addresses>> _foodFuture;
 
   @override
   void initState() {
     super.initState();
-    _foodFuture = _foodService.getFoodByCategory('pizza');
+    _foodFuture = _foodService.getAllAddress();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Food Menu")),
-      body: FutureBuilder<List<Food>>(
+      body: FutureBuilder<List<Addresses>>(
         future: _foodFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,16 +75,14 @@ class _FoodScreenState extends State<FoodScreen> {
             return const Center(child: Text("No food items available."));
           }
 
-          List<Food> foods = snapshot.data!;
+          List<Addresses> foods = snapshot.data!;
           return ListView.builder(
             itemCount: foods.length,
             itemBuilder: (context, index) {
-              Food food = foods[index];
+              Addresses food = foods[index];
 
               return ListTile(
-                leading: _buildFoodImage(food.image),
-                title: Text(food.name),
-                subtitle: Text("\$${food.price.toStringAsFixed(2)}"),
+                leading: _buildFoodImage(food.latitude as String),
               );
             },
           );
@@ -123,5 +119,5 @@ class _FoodScreenState extends State<FoodScreen> {
 
 
 void main() {
-  runApp(const MaterialApp(home: FoodScreen()));
+  runApp(const MaterialApp(home: LocationScreen()));
 }

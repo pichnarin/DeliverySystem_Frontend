@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/domain/service/order_service.dart';
 
+import '../domain/service/location_service.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -131,13 +133,18 @@ class GoogleSignInButton extends StatelessWidget {
         print("User signup successful");
         print("Response body: ${response.body}");
 
-        // Navigate to FoodScreen after successful login
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const FoodScreen()),
-        );
+        //Navigate to FoodScreen after successful login
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const LocationScreen()),
+        // );
 
-        placeOrder();
+        createAddress();
+
+        // placeOrder();
+
+
+
       } else {
         print('Failed to authenticate with backend. Status Code: ${response.statusCode}');
         print('Response body: ${response.body}'); // Print response for debugging
