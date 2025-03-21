@@ -1,6 +1,38 @@
 import 'package:http/http.dart' as http;
 import 'api_service.dart';
 
+
+class OrderService{
+
+  Future<void> placeOrder(Map<String, dynamic> orderData) async {
+    try {
+      http.Response response = await apiService.post("orders/place-orders", orderData);
+
+      if (response.statusCode == 201) {
+        print("Order placed successfully: ${response.body}");
+      } else {
+        print("Error ${response.statusCode}: ${response.body}");
+      }
+    } catch (e) {
+      print("Exception: $e");
+    }
+  }
+
+  // Future<void> createAddress(Map<String, dynamic> addressData) async{
+  //   try{
+  //     http.Response response = await apiService.post("addresses/create-address", addressData);
+  //
+  //     if(response.statusCode == 201){
+  //       print("Address created successfully: ${response.body}");
+  //     } else {
+  //       print("Error ${response.statusCode}: ${response.body}");
+  //     }
+  //   }catch(e){
+  //     print("Exception: $e");
+  //   }
+  // }
+}
+
 void placeOrder() async {
   try {
     Map<String, dynamic> orderData = {
@@ -8,6 +40,7 @@ void placeOrder() async {
       "food": [
         {"food_id": 3, "quantity": 3 },
         {"food_id": 4, "quantity": 10}
+
       ]
     };
 

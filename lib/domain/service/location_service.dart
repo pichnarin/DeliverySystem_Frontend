@@ -8,9 +8,9 @@ import 'package:http/http.dart' as http;
 import 'api_service.dart';
 
 class LocationService{
-  Future<List<Addresses>> getAllAddress() async {
+  Future<List<Addresses>> fetchAllAddress() async {
     try {
-      http.Response response = await apiService.get('addresses/getAllAddresses');
+      http.Response response = await apiService.get('addresses');
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body)['data'];
@@ -35,8 +35,6 @@ class LocationService{
       throw Exception('Error: $e');
     }
   }
-
-
 }
 
 
@@ -57,7 +55,7 @@ class _FoodScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    _foodFuture = _foodService.getAllAddress();
+    _foodFuture = _foodService.fetchAllAddress();
   }
 
   @override
