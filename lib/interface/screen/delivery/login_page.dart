@@ -3,10 +3,12 @@ import 'package:frontend/interface/component/widgets/custom_button.dart';
 import 'package:frontend/interface/component/widgets/divider.dart';
 import 'package:frontend/interface/component/widgets/social_button.dart';
 import 'package:frontend/interface/component/widgets/textfield.dart';
-import 'package:frontend/interface/screen/delivery/create_account.dart';
-import 'package:frontend/interface/screen/delivery/forgot_password_page.dart';
-import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+// import 'package:frontend/interface/screen/delivery/create_account.dart';
+// import 'package:frontend/interface/screen/delivery/forgot_password_page.dart';
+// import 'package:frontend/interface/screen/delivery/registration_page.dart';
+// import 'package:frontend/interface/theme/app_pallete.dart';
+import '../../theme/theme.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -50,39 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
               ),
               const SizedBox(height: 50),
-              Center(
-                child: Column(
-                  children: [
-                    CustomButton(
-                      buttonText: 'Sign in', 
-                      onPressed: () {
-                        print("Button Clicked! Navigating...");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const RegistrationPage()),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
-                        );
-                      },
-                      child: const Text(
-                        'Forgot the password?',
-                        style: TextStyle(
-                          color: AppPallete.signInUpText, 
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+
               const SizedBox(height: 30),
               const OrDivider(text: 'or continue with',),
               const SizedBox(height: 30),
@@ -127,22 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppPallete.secondaryText,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CreateAccount()),
-                  );
-                    },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: AppPallete.signInUpText, 
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                   ),
                 ],

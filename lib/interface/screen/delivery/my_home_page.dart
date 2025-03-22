@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/interface/component/widgets/custom_button.dart';
-import 'package:frontend/interface/screen/delivery/registration_page.dart';
-import 'package:frontend/interface/theme/app_pallete.dart';
+// import 'package:frontend/interface/screen/delivery/registration_page.dart';
+// import 'package:frontend/interface/theme/app_pallete.dart';
+import '../../theme/theme.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -38,16 +39,7 @@ class MyHomePage extends StatelessWidget {
                 width: 400, height: 400
               ),
               const SizedBox(height: 10,),
-              CustomButton(
-                buttonText: 'Get Started!', 
-                onPressed: () {
-                  print("Button Clicked! Navigating...");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RegistrationPage()),
-                  );
-                },
-              ),
+
             ],
           ),
         ),

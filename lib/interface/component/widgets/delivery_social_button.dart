@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../theme/theme.dart';
 
 class SocialButton extends StatelessWidget {
@@ -39,17 +38,17 @@ class SocialButton extends StatelessWidget {
         : ElevatedButton.icon(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-                side: const BorderSide(color: AppPallete.border, width: 1)
+                borderRadius: BorderRadius.circular(22),
+                side: BorderSide(color: AppPallete.border, width: 1)
               ),
               backgroundColor: Colors.white,
             ),
             icon: Image.asset(iconPath, width: 32, height: 32),
             label: Text(
               label,
-              style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
         ),
     );

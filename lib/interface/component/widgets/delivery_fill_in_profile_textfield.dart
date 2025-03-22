@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../theme/theme.dart';
 
 class ReusableTextField extends StatefulWidget {
@@ -52,7 +51,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
           suffixIcon: widget.suffixIcon ??
               (widget.obscureText // Only show the toggle if it's a password field
               ? IconButton(
-                  icon: Icon(_secureText ? Icons.visibility : Icons.visibility_off),
+                  icon: Icon(_secureText ? Icons.visibility_off : Icons.visibility),
                   onPressed: () {
                     setState(() {
                       _secureText = !_secureText; // Toggle visibility
@@ -65,7 +64,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.blue),
+            borderSide: BorderSide(color: Colors.blue),
           ),
         ),
       ),
