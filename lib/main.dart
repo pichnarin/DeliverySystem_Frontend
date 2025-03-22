@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/domain/provider/user_provider.dart';
-import 'package:frontend/interface/screen/delivery/login_screen.dart';
-import 'package:frontend/interface/screen/delivery/welcome_screen.dart';
-import 'package:provider/provider.dart';
-
-import 'interface/theme/theme.dart';
-
+import 'package:frontend/interface/screen/delivery/my_home_page.dart';
 
 void main(){
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   //
   // //initialize firebase
   //
@@ -22,16 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => UserProvider(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: appTheme,
-          home: WelcomeScreen(),
-        )
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
     );
   }
 }
-
-
 

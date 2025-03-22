@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../theme/theme.dart';
+import 'package:frontend/interface/theme/app_pallete.dart';
 
 class OrDivider extends StatelessWidget {
   final double lineWidth;
