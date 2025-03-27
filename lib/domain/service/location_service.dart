@@ -10,7 +10,7 @@ import 'api_service.dart';
 class LocationService{
   Future<List<Addresses>> fetchAllAddress() async {
     try {
-      http.Response response = await apiService.get('addresses');
+      http.Response response = await apiService.get('addresses/fetch-addresses');
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body)['data'];

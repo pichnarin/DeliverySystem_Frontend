@@ -27,7 +27,10 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: appTheme,
-          home: WelcomeScreen(),
+          // home: WelcomeScreen(),
+          home: Scaffold(
+            body: const Text("Hello World"),
+          )
         )
     );
   }

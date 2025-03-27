@@ -1,4 +1,14 @@
 // android/build.gradle (Root-level)
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.0' // Ensure you have this correct
+    }
+}
+
 
 
 allprojects {
