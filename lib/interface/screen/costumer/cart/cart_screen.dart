@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../domain/providers-customer/cart_provider.dart';
 import '../../../../domain/utils/model_adapter.dart';
 import 'widgets/cart_item.dart';
@@ -16,12 +15,12 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   String? _selectedLocation;
-  String _selectedPaymentMethod = 'Cash on Delivery'; // Default payment method
+  String _selectedPaymentMethod = 'Cash on Delivery';
 
   @override
   void initState() {
     super.initState();
-    _selectedLocation = 'Home'; // Default location
+    _selectedLocation = 'Home';
   }
 
   void _printOrderDetails() {
@@ -37,7 +36,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _navigateToPaymentScreen() {
-    // Check if cart is empty
     final cartProvider = context.read<CartProvider>();
     if (cartProvider.cartItems.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -46,7 +44,6 @@ class _CartScreenState extends State<CartScreen> {
       return;
     }
 
-    // Check if location and payment method are selected
     if (_selectedLocation == null || _selectedPaymentMethod.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please select location and payment method")),
@@ -54,16 +51,10 @@ class _CartScreenState extends State<CartScreen> {
       return;
     }
 
-    // Print order details to the terminal
     _printOrderDetails();
-
-    // Show "Order placed!" message
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Order placed!")),
     );
-
-    // Here you would navigate to the payment screen
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(...)));
   }
 
   @override
@@ -104,9 +95,7 @@ class _CartScreenState extends State<CartScreen> {
           const Text("Your cart is empty", style: TextStyle(fontSize: 18)),
           const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -138,12 +127,9 @@ class _CartScreenState extends State<CartScreen> {
                     title: Text(_selectedLocation ?? "Choose a Location"),
                     leading: const Icon(Icons.location_on),
                     onTap: () async {
-                      // Show location selection dialog
                       final selectedLocation = await _selectLocation(context);
                       if (selectedLocation != null) {
-                        setState(() {
-                          _selectedLocation = selectedLocation;
-                        });
+                        setState(() => _selectedLocation = selectedLocation);
                       }
                     },
                   ),
@@ -154,9 +140,7 @@ class _CartScreenState extends State<CartScreen> {
                     onTap: () async {
                       final selectedPaymentMethod = await _selectPaymentMethod(context);
                       if (selectedPaymentMethod != null) {
-                        setState(() {
-                          _selectedPaymentMethod = selectedPaymentMethod;
-                        });
+                        setState(() => _selectedPaymentMethod = selectedPaymentMethod);
                       }
                     },
                   ),
@@ -176,72 +160,31 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<String?> _selectLocation(BuildContext context) async {
-    // Display a bottom sheet to select location
     return await showModalBottomSheet<String>(
       context: context,
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context, 'Home');
-              },
-            ),
-            ListTile(
-              title: const Text('Office'),
-              onTap: () {
-                Navigator.pop(context, 'Office');
-              },
-            ),
-            ListTile(
-              title: const Text('Other'),
-              onTap: () {
-                Navigator.pop(context, 'Other');
-              },
-            ),
-          ],
-        );
-      },
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(title: const Text('Home'), onTap: () => Navigator.pop(context, 'Home')),
+          ListTile(title: const Text('Office'), onTap: () => Navigator.pop(context, 'Office')),
+          ListTile(title: const Text('Other'), onTap: () => Navigator.pop(context, 'Other')),
+        ],
+      ),
     );
   }
 
   Future<String?> _selectPaymentMethod(BuildContext context) async {
-    // Display a bottom sheet to select payment method
     return await showModalBottomSheet<String>(
       context: context,
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: const Text('Cash on Delivery'),
-              onTap: () {
-                Navigator.pop(context, 'Cash on Delivery');
-              },
-            ),
-            ListTile(
-              title: const Text('Credit/Debit Card'),
-              onTap: () {
-                Navigator.pop(context, 'Credit/Debit Card');
-              },
-            ),
-            ListTile(
-              title: const Text('PayPal'),
-              onTap: () {
-                Navigator.pop(context, 'PayPal');
-              },
-            ),
-            ListTile(
-              title: const Text('ABA'),
-              onTap: () {
-                Navigator.pop(context, 'ABA');
-              },
-            ),
-          ],
-        );
-      },
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(title: const Text('Cash on Delivery'), onTap: () => Navigator.pop(context, 'Cash on Delivery')),
+          ListTile(title: const Text('Credit/Debit Card'), onTap: () => Navigator.pop(context, 'Credit/Debit Card')),
+          ListTile(title: const Text('PayPal'), onTap: () => Navigator.pop(context, 'PayPal')),
+          ListTile(title: const Text('ABA'), onTap: () => Navigator.pop(context, 'ABA')),
+        ],
+      ),
     );
   }
 }

@@ -16,6 +16,9 @@ class LocationSelectionButton extends StatelessWidget {
       onPressed: onPressed, // The onPressed callback
       icon: Icons.location_on, // Add the location icon
       type: 'secondary', // Optional, set as secondary to match the style
+      backgroundColor: Colors.red, // Add the required backgroundColor argument
+      textColor: Colors.white as MaterialColor, // Add the required textColor argument
+      style: TextStyle(fontSize: 16), // Add the required style argument
     );
   }
 }

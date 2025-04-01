@@ -6,13 +6,11 @@ import 'package:provider/provider.dart';
 import 'domain/providers-customer/cart_provider.dart';
 import 'domain/providers-customer/category_provider.dart';
 import 'domain/providers-customer/food_provider.dart';
-// import 'domain/providers/cart_provider.dart';
-// import 'domain/providers/food_provider.dart'; // Add this for managing foods
-// import 'domain/providers/category_provider.dart'; // Add this for managing categories
+import 'interface/component/widgets/costumer widget/main_wrapper.dart';
 import 'interface/screen/costumer/homescreen/home_screen.dart';
-import 'interface/screen/costumer/menu/menu_screen.dart';
 import 'interface/screen/costumer/login/signup_screen.dart';
 import 'interface/screen/costumer/sign_up/google_signup.dart';
+// import 'interface/main_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +27,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CartProvider()),
-        ChangeNotifierProvider(create: (context) => FoodProvider()), // Add FoodProvider
-        ChangeNotifierProvider(create: (context) => CategoryProvider()), // Add CategoryProvider
+        ChangeNotifierProvider(create: (context) => FoodProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
       ],
       child: const MyApp(),
     ),
@@ -44,14 +42,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home', // Start from the Menu Screen
+      home: const HomeScreen(), // Start with HomeScreen
       routes: {
+        '/menu': (context) => const MainWrapper(), // Add route for MainWrapper
         '/signIn': (context) => const SignInScreen(),
         '/signUp': (context) => const CreateAccount(),
         '/home': (context) => const HomeScreen(),
-        '/menu': (context) => MenuScreen(),
       },
     );
   }
 }
-
