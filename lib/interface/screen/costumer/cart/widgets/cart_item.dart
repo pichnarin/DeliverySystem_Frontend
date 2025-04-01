@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../domain/providers-customer/cart_provider.dart';
-// import '../../../../../domain/providers/cart_provider.dart';
 import '../../../../../domain/utils/model_adapter.dart';
-import '../../../../component/widgets/costumer widget/pizza_button.dart';
 
 class CartItemWidget extends StatelessWidget {
   final CartItem item;
@@ -19,36 +17,78 @@ class CartItemWidget extends StatelessWidget {
     // Use ModelAdapter to get the price for the selected size
     final itemPrice = ModelAdapter.getPriceForSize(item.food, item.size);
     final totalItemPrice = itemPrice * item.quantity;
-    
-    return ListTile(
-      leading: Image.network(
-        item.food.image, // Updated to use food.image instead of product.imageUrl
-        width: 50, 
-        height: 50, 
-        fit: BoxFit.cover
-      ),
-      title: Text("${item.food.name} (${item.size})"), // Updated to use food.name
-      subtitle: Text("Quantity: ${item.quantity}"),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Price Display - using ModelAdapter to get the price
-          Text("\$${totalItemPrice.toStringAsFixed(2)}"),
-          const SizedBox(width: 10),
-          
-          // Replacing the IconButton with PizzaButton
-          PizzaButton(
-            label: 'Remove',
-            onPressed: () {
-              // Updated to use the new removeFromCart signature
-              removeFromCart("${item.food.id}_${item.size}");
-            },
-            type: 'neutral',  // Neutral button style for remove
-            icon: Icons.remove_circle_outline, // Optional icon for remove action
-          ),
-        ],
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            // Left Column with Image and Food Name
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image - Ensuring it stays within the card
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    item.food.image,
+                    width: 80,  // Fixed width for responsive design
+                    height: 80, // Fixed height for responsive design
+                    fit: BoxFit.cover, // Ensures the image doesn't overflow
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Food name under the image
+                Text(
+                  item.food.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14, // Adjust the font size for better readability
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                // Price Display - below food name
+                Text(
+                  "\$${totalItemPrice.toStringAsFixed(2)}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.orange,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Remove button - below the price
+                IconButton(
+                  onPressed: () {
+                    removeFromCart("${item.food.id}_${item.size}");
+                  },
+                  icon: Icon(Icons.remove_circle_outline, color: Colors.orange),
+                ),
+              ],
+            ),
+            const SizedBox(width: 16),
+            
+            // Right Column with Quantity
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Quantity display
+                  Text(
+                    "Quantity: ${item.quantity}",
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-

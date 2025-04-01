@@ -46,11 +46,22 @@ class CartTotalWidget extends StatelessWidget {
             const SizedBox(height: 8),
 
             // Replacing the ElevatedButton with PizzaButton
-            PizzaButton(
-              label: 'Checkout',
+           ElevatedButton(
               onPressed: onCheckout, // This will handle the checkout logic
-              type: 'primary', // Set the type to primary to match the button style
-              icon: Icons.check_circle_outline, // Optional icon
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange, // Orange button color
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Checkout',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),

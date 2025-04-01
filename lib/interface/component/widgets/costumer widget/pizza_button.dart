@@ -7,7 +7,7 @@ class PizzaButton extends StatelessWidget {
   const PizzaButton({
     Key? key,
     required this.label,
-    required this.onPressed, required String type, required IconData icon,
+    required this.onPressed, required String type, required IconData icon, required Color backgroundColor, required MaterialColor textColor, required TextStyle style,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class PizzaButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.red,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         textStyle: const TextStyle(fontSize: 16),
         shape: RoundedRectangleBorder(

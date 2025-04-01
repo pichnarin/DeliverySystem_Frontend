@@ -1,13 +1,11 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../domain/providers-customer/cart_provider.dart';
-// import '../../../../domain/providers/cart_provider.dart';
 import '../../../../domain/utils/model_adapter.dart';
 import 'widgets/cart_item.dart';
 import 'widgets/cart_total.dart';
+import 'package:frontend/interface/theme/theme.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -64,7 +62,7 @@ class _CartScreenState extends State<CartScreen> {
       const SnackBar(content: Text("Order placed!")),
     );
 
-    // Here you would navigate to payment screen
+    // Here you would navigate to the payment screen
     // Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(...)));
   }
 
@@ -77,6 +75,8 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         title: const Text("Cart"),
         centerTitle: true,
+        backgroundColor: PizzaColors.primary,
+        foregroundColor: PizzaColors.white,
       ),
       body: cartItemsList.isEmpty
           ? _buildEmptyCart(context)
@@ -110,6 +110,7 @@ class _CartScreenState extends State<CartScreen> {
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              backgroundColor: PizzaColors.primary,
             ),
             child: const Text("Browse Menu", style: TextStyle(fontSize: 16)),
           ),
@@ -244,4 +245,3 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 }
-

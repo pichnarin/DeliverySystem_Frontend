@@ -21,7 +21,8 @@ import '../cart/cart_screen.dart';
 import 'widgets/category_tab_bar.dart';
 import 'widgets/product_grid_view.dart';
 import 'widgets/search_bar.dart';
-
+import 'widgets/convex_bottom_nav.dart';
+import 'widgets/custom_app_bar.dart';
 // ignore: must_be_immutable
 class MenuScreen extends StatefulWidget {
   String? selectedLocation;
@@ -199,36 +200,43 @@ void didChangeDependencies() {
 
 
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Pizza Menu',
-              style: PizzaTextStyles.heading.copyWith(
-                color: PizzaColors.white,
-              ),
-            ),
-            if (widget.selectedLocation != null)
-              Text(
-                'Delivery to: ${widget.selectedLocation}',
-                style: PizzaTextStyles.body.copyWith(
-                  // ignore: deprecated_member_use
-                  color: PizzaColors.white.withOpacity(0.7),
-                ),
-              ),
-          ],
-        ),
-        backgroundColor: PizzaColors.primary,
-        foregroundColor: PizzaColors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.location_on),
-            onPressed: _selectLocation,
-          ),
-        ],
+      backgroundColor: Colors.white, 
+      // appBar: AppBar(
+      //   title: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       Text(
+      //         'Pizza Menu',
+      //         style: PizzaTextStyles.heading.copyWith(
+      //           color: PizzaColors.white,
+      //         ),
+      //       ),
+      //       if (widget.selectedLocation != null)
+      //         Text(
+      //           'Delivery to: ${widget.selectedLocation}',
+      //           style: PizzaTextStyles.body.copyWith(
+      //             // ignore: deprecated_member_use
+      //             color: PizzaColors.white.withOpacity(0.7),
+      //           ),
+      //         ),
+      //     ],
+      //   ),
+      //   backgroundColor: PizzaColors.primary,
+      //   foregroundColor: PizzaColors.white,
+      //   elevation: 0,
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.location_on),
+      //       onPressed: _selectLocation,
+      //     ),
+      //   ],
+      // ),
+       appBar: CustomAppBar(  // Call the custom AppBar
+        title: 'Pizza Menu',  // Title for the AppBar
+        selectedLocation: widget.selectedLocation,  // Pass location if available
+        onLocationPressed: _selectLocation,  // Function to handle location button press
       ),
+      
       body: Column(
         children: [
           SearchBarWidget(
@@ -247,27 +255,31 @@ void didChangeDependencies() {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: PizzaColors.primary,
-        unselectedItemColor: PizzaColors.neutralLight,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_pizza),
-            label: "Menu",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: "Cart",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
+ 
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: _selectedIndex,
+      //   onTap: _onItemTapped,
+      //   selectedItemColor: PizzaColors.primary,
+      //   unselectedItemColor: PizzaColors.neutralLight,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.local_pizza),
+      //       label: "Menu",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.shopping_bag),
+      //       label: "Cart",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: "Profile",
+      //     ),
+      //   ],
+      // ),
+
+       bottomNavigationBar: ReactStyleConvexAppBar(
+        onItemTapped: _onItemTapped, // Pass the function to handle navigation
       ),
     );
   }
 }
-

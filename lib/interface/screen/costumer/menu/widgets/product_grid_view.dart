@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../../domain/model/costumer model/food.dart';
-// import '../../../../../domain/model/food.dart';
 import '../../../../component/widgets/costumer widget/product_card.dart';
 
 class ProductGridView extends StatelessWidget {
@@ -17,18 +16,34 @@ class ProductGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.8,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+          childAspectRatio: 0.75,  // Adjusted for better balance of image & text
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
         ),
         itemCount: filteredProducts.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => onProductTap(context, filteredProducts[index]),
-            child: ProductCard(food: filteredProducts[index]), // Updated to use food instead of product
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 6,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: ProductCard(food: filteredProducts[index]),
+              ),
+            ),
           );
         },
       ),

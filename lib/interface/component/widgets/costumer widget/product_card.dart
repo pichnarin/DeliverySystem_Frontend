@@ -13,7 +13,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 3,
+      color: Colors.white, // Changed card color to white
+      elevation: 5, // Increased elevation for a little shadow
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -32,6 +33,7 @@ class ProductCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                // Food name
                 Text(
                   food.name,
                   style: const TextStyle(
@@ -41,6 +43,20 @@ class ProductCard extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 4),
+                
+                // Food description (new addition)
+                Text(
+                  food.description ?? "No description available",  // Add description with fallback text
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
+                
+                // Price and Add button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -65,13 +81,30 @@ class ProductCard extends StatelessWidget {
                         // Navigate to SizeSelectionScreen
                         _navigateToSizeSelectionScreen(context);
                       },
+                      splashColor: Colors.orange.withOpacity(0.3),  // Splash effect on tap
+                      highlightColor: Colors.orange.withOpacity(0.2),  // Highlight effect on tap
                       child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.all(12),  // Increased padding for a larger button
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.orange),
+                          gradient: LinearGradient(
+                            colors: [Colors.orange.shade400, Colors.orange.shade700],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.orange.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                            ),
+                          ],
                         ),
-                        child: const Icon(Icons.add, color: Colors.orange),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 28,  // Larger icon size for better visibility
+                        ),
                       ),
                     ),
                   ],
@@ -94,4 +127,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-

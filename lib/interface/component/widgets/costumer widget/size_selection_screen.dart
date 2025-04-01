@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/interface/theme/theme.dart';
 import 'package:provider/provider.dart';
-
-// import '../../../../../domain/model/food.dart';
 import '../../../../domain/model/costumer model/food.dart';
 import '../../../../domain/providers-customer/cart_provider.dart';
-// import '../../../../domain/providers/cart_provider.dart';
-// import '../../../../providers/cart_provider.dart';
 
 class SizeSelectionScreen extends StatefulWidget {
   final Food food;
@@ -30,109 +27,191 @@ class _SizeSelectionScreenState extends State<SizeSelectionScreen> {
   Widget build(BuildContext context) {
     final basePrice = widget.food.price;
     final selectedSizePrice = sizeDetails[_selectedSize]!['price'] as double;
-    final totalPrice = basePrice + selectedSizePrice;
+    final totalPrice = (basePrice + selectedSizePrice) * _selectedQuantity;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Select Size and Quantity"),
+        title: const Text("Cart"),
+        backgroundColor: Colors.orange, // Changed to orange
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        actions: [
+          Consumer<CartProvider>(
+            builder: (context, cartProvider, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/cartScreen');
+                    },
+                  ),
+                  if (cartProvider.cartItemCount > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 18,
+                          minHeight: 18,
+                        ),
+                        child: Text(
+                          '${cartProvider.cartItemCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Display the image of the selected food
             Container(
-              width: double.infinity,
-              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                image: DecorationImage(
-                  image: NetworkImage(widget.food.image), // Updated to use food.image
-                  fit: BoxFit.cover,
-                ),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    blurRadius: 5,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(widget.food.image, height: 180, fit: BoxFit.cover),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.food.name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Size:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Row(
+                              children: sizeDetails.keys.map((size) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                  child: ChoiceChip(
+                                    label: Text(sizeDetails[size]!['label']),
+                                    selected: _selectedSize == size,
+                                    onSelected: (bool selected) {
+                                      setState(() {
+                                        _selectedSize = size;
+                                      });
+                                    },
+                                    selectedColor: Colors.orange, // Changed to orange
+                                    labelStyle: TextStyle(
+                                      color: _selectedSize == size ? Colors.white : Colors.orange, // Changed to orange
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Quantity:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.remove_circle_outline),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (_selectedQuantity > 1) {
+                                        _selectedQuantity--;
+                                      }
+                                    });
+                                  },
+                                  color: Colors.orange, // Changed to orange
+                                ),
+                                Text('$_selectedQuantity', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                IconButton(
+                                  icon: const Icon(Icons.add_circle_outline),
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedQuantity++;
+                                    });
+                                  },
+                                  color: Colors.orange, // Changed to orange
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            // Title text showing the food name
-            Text(
-              widget.food.name,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.orange, // Changed to orange
+                borderRadius: BorderRadius.circular(16),
               ),
-            ),
-            const SizedBox(height: 16),
-            // Size selection
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: sizeDetails.keys.map((size) {
-                return ChoiceChip(
-                  label: Text(sizeDetails[size]!['label']),
-                  selected: _selectedSize == size,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      _selectedSize = size;
-                    });
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
-
-            // Quantity selection
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: () {
-                    setState(() {
-                      if (_selectedQuantity > 1) {
-                        _selectedQuantity--;
-                      }
-                    });
-                  },
-                ),
-                Text('$_selectedQuantity', style: const TextStyle(fontSize: 18)),
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () {
-                    setState(() {
-                      _selectedQuantity++;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // Total price display
-            Text(
-              'Total: \$${totalPrice.toStringAsFixed(2)}',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Total:", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text('\$${totalPrice.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Provider.of<CartProvider>(context, listen: false).addToCart(
+                          widget.food,
+                          _selectedSize,
+                          _selectedQuantity,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added ${widget.food.name} ($_selectedSize) to cart")),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.orange, // Changed to orange
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: Text("Place My Order", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 24),
-
-            // Add to cart button
-            ElevatedButton(
-              onPressed: () {
-                // Use _selectedQuantity here when adding to cart
-                Provider.of<CartProvider>(context, listen: false).addToCart(
-                  widget.food, // Pass food
-                  _selectedSize,  // Pass selected size
-                  _selectedQuantity,  // Pass selected quantity
-                );
-
-                // Show a confirmation message
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Added ${widget.food.name} ($_selectedSize) to cart")),
-                );
-              },
-              child: const Text('Add to Cart'),
             ),
           ],
         ),
@@ -140,4 +219,3 @@ class _SizeSelectionScreenState extends State<SizeSelectionScreen> {
     );
   }
 }
-
